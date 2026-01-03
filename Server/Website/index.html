@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Title</title>
+</head>
+    <body>
+        <h1>Secure Login</h1>
+        <p class="login">
+            <form action="/api/login" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            {{Error}}
+        </p>
+
+    </body>
+</html>
