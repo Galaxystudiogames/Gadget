@@ -1,6 +1,7 @@
 import hashlib
 import http.server
 import datetime
+import secrets
 from urllib.parse import parse_qs
 import httpx
 
@@ -43,21 +44,47 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         else:
             passwordHash = hashlib.sha512(bytes(password, "utf-8")).hexdigest()
             if passwordHash == PasswordHash:
-                httpx.Cookies().clear()
-                SessionKey = hashlib.sha512(bytes(username + datetime.datetime.now(), "utf-8")).hexdigest()
-                print("Session Key: " + SessionKey)
-                NewSession = SessionKey + "," + datetime.datetime.now().strftime("%d.%m.%Y")
-                Sessions = NewSession
-                httpx.Cookies().set(name="SessionKey", value=SessionKey)
                 return True
             else:
                 return False
 
+    def CreateSession(self):
+        SessionKey = secrets.token_urlsafe(32)
+        Expiration = datetime.datetime.now() + datetime.timedelta(minutes=SessionTimeout)
+        Sessions[SessionKey] = Expiration
+        print(Sessions)
+        return SessionKey
+
+    def CheckSession(self):
+        Cookies = self.headers.get("Cookie")
+        print(Cookies)
+        if not Cookies:
+            return False
+        for item in Cookies.split(";"):
+            if "session=" not in item:
+                pass
+            else:
+                SessionKey = item.split('=')[1].strip()
+                if SessionKey not in Sessions:
+                    return False
+                else:
+                    if Sessions[SessionKey] < datetime.datetime.now():
+                        del Sessions[SessionKey]
+                        return False
+                    else:
+                        return True
+        return False
+
     def do_GET(self):
         if self.path == "/":
             self.send_HTML("index.html")
-        elif self.path.startswith("/Dashboard/"):
-            self.wfile.write(bytes("This Resource is not available", "utf-8"))
+        elif self.path.startswith("/Dashboard"):
+            if self.CheckSession():
+                self.send_HTML(self.path[1:])
+            else:
+                self.send_response(303)
+                self.send_header("Location", "/")
+                self.end_headers()
         else:
             try:
                 self.send_HTML(self.path)
@@ -73,9 +100,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             username = data.get("username")[0]
             password = data.get("password")[0]
             if self.CredentialsCheck(username, password):
-                self.send_HTML("Dashboard/dashboard.html")
-            else :
-                self.send_response(401)
-                self.send_header("Content-type", "text/html")
+                self.send_response(303)
+                session = str(self.CreateSession())
+                self.send_header("Set-Cookie",f"session={session}; Path=/; HttpOnly; Max-Age={SessionTimeout * 60}; Secure")
+                self.send_header("Location", "/Dashboard/dashboard.html")
                 self.end_headers()
-                self.send_HTML("index.html", Error="Wrong username or password")
+            else :
+                self.send_response(303)
+                self.send_header("Location", "/index.html")
+                self.end_headers()

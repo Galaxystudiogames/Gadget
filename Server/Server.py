@@ -7,7 +7,7 @@ import http.server
 import Server.HandlerOwn as Handler
 
 
-Hostname = "localhost"
+Hostname = "0.0.0.0"
 Port = 8080
 Conn = http.client.HTTPConnection(host=Hostname, port=Port)
 logfile = "logs/Commands/" + datetime.datetime.now().strftime("%d.%m.%Y") + ".log"
@@ -20,7 +20,7 @@ def start():
     log.write(datetime.datetime.now().strftime("%H:%M:%S") + ": Starting HTTP Server on port: " + str(Port) + "..." + "\n")
     thread = http.server.HTTPServer((Hostname, Port), Handler.Handler)
     context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_SERVER)
-    context.load_cert_chain(certfile="Server/Certificate/cert.pem")
+    context.load_cert_chain(certfile="Server/Certificate/cert.pem", keyfile="Server/Certificate/key.pem")
     thread.socket = context.wrap_socket(thread.socket, server_side=True)
     try:
         threading.Thread(target=thread.serve_forever()).start()

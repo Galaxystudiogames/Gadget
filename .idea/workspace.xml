@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc72868d-be8b-4ad4-8def-bf7d28907121" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/Server/Certificate/cert.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/HandlerOwn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Website/Dashboard/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Website/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Website/styles/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Certificate/key.pem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Certificate/cert.pem" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Certificate/cert.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/HandlerOwn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/HandlerOwn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +60,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master"
   }
