@@ -2,8 +2,9 @@ import hashlib
 import http.server
 import datetime
 import secrets
+import json
+import psutil
 from urllib.parse import parse_qs
-import httpx
 
 ServerLogname = "logs/Server/" + datetime.datetime.now().strftime("%d.%m.%Y") + ".log"
 ServerLogfile = open(ServerLogname, "w")
@@ -85,6 +86,36 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(303)
                 self.send_header("Location", "/")
                 self.end_headers()
+        elif self.path == "/api/info":
+            if not self.CheckSession():
+                self.send_response(401)
+                self.end_headers()
+                return
+            data = {
+                "battery": 85,
+                "uptime": "10h",
+                "ip": "127.0.0.1",
+                "sessions": len(Sessions),
+                "temp": psutil.sensors_temperatures()['coretemp'][0].current,
+                "CPU-Usage": psutil.cpu_percent(),
+                "RAM-Usage": psutil.virtual_memory().percent,
+            }
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(data).encode())
+        elif self.path == "/api/battery":
+            if not self.CheckSession():
+                self.send_response(401)
+                self.end_headers()
+                return
+            data = {
+                "battery": 85,
+            }
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(data).encode())
         else:
             try:
                 self.send_HTML(self.path)

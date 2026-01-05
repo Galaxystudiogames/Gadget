@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc72868d-be8b-4ad4-8def-bf7d28907121" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/Server/Certificate/key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Certificate/cert.pem" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Certificate/cert.pem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/HandlerOwn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/HandlerOwn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Website/Dashboard/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Website/Dashboard/dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -58,6 +57,9 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.HandlerOwn.executor": "Run",
+    "Python.a<sd.executor": "Run",
+    "Python.asd.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
