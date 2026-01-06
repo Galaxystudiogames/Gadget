@@ -8,6 +8,7 @@ async function updateWidget() {
         const data = await response.json();
 
         document.getElementById("Battery").textContent = data.battery
+        document.getElementById("Battery2").textContent = data.battery
         document.getElementById("Uptime").textContent = data.uptime
         document.getElementById("IP").textContent = data.ip
         document.getElementById("Sessions").textContent = data.sessions
@@ -20,6 +21,14 @@ async function updateWidget() {
     }
 }
 
+async function blink() {
+    document.getElementById("blink").textContent = " "
+    await new Promise(r => setTimeout(r, 500));
+    document.getElementById("blink").textContent = "█"
+}
+
 updateWidget()
+
+setInterval(blink, 1000)
 
 setInterval(updateWidget, 30000)

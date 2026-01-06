@@ -5,9 +5,11 @@ import secrets
 import json
 import psutil
 from urllib.parse import parse_qs
+import subprocess
 
 ServerLogname = "logs/Server/" + datetime.datetime.now().strftime("%d.%m.%Y") + ".log"
 ServerLogfile = open(ServerLogname, "w")
+IP = str(subprocess.check_output(["hostname", "-I"]).decode("utf-8"))
 
 Username = "Langebe"
 PasswordHash = "e5d7234d85b9b847d5cbcc7974bca2a82a0cf2bda7dc728d899370ba423275fcd3d7e47e83b87f1122968c3f7c823c6d6798ce91ef171baac51c41ce3739749d"
@@ -93,8 +95,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 return
             data = {
                 "battery": 85,
-                "uptime": "10h",
-                "ip": "127.0.0.1",
+                "uptime": psutil.boot_time(),
+                "ip": IP,
                 "sessions": len(Sessions),
                 "temp": psutil.sensors_temperatures()['coretemp'][0].current,
                 "CPU-Usage": psutil.cpu_percent(),

@@ -4,11 +4,11 @@ body{
     font-family: 'Times New Roman', Times, serif; 
     text-align: center;
     margin: 0;
-
+    font-size: medium;
 }
 
 h1{
-    font-size: 300% ;
+    font-size: 150% ;
 }
 
 .TopBar{
@@ -40,6 +40,10 @@ h1{
     background-color: darkgray;
 }
 
+.TopBar .Battery {
+    float: right;
+}
+
 .InfoWidget{
     background-color: gray;
     float: right;
@@ -53,5 +57,56 @@ h1{
 .InfoWidget h2 {
     margin-left: 10px;
     margin-right: 10px;
+    text-align: left;
+}
+
+.QuickActionsWidget {
+    background-color: rgb(37, 37, 37);
+    float: left;
+    border-style: outset;
+    border-color: darkgray;
+    border-width: 10px;
+    margin-top: 50px;
+    margin-left: 15px ;
+    display: block;
+    color: white;
+}
+
+.QuickActionsWidget h2 {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.HeroWidget {
+    background-color: black;
+    float: left;
+    border-style: outset;
+    border-color: darkgray;
+    border-width: 10px;
+    margin-top: 50px;
+    margin-left: 15px ;
+    display: block;
+    color: green;
+}
+
+.HeroWidget dev {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    font-size: 20px;
+}
+
+.HeroWidget .AssciiArt {
+    color: #00ff00;
+    font-size: 11px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    white-space: pre;
+    overflow-x: auto;
+    margin-right:  40px;
+    margin-left: 5px;
+}
+
+.HeroWidget .AssciiArt h2 {
     text-align: left;
 }

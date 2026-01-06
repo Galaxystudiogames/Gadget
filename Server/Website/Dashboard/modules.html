@@ -2,16 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Phantom Gadget Modules</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script type="text/javascript" src="script.js"></script>
 </head>
     <body>
         <div class="TopBar">
             <a href="dashboard.html">Home</a>
             <a href="settings.html">Settings</a>
             <a href="modules.html" class="current">Modules</a>
-
+            <a href="stats.html">Stats</a>
+            <a href="" class="Battery"><span id="Battery">--</span></a>
         </div>
 
+        <div class="InfoWidget">
+            <h2>Battery: <span id="Battery" class="Widget">-</span>%</h2>
+            <h2>Uptime: <span id="Uptime" class="Widget">-</span></h2>
+            <h2>IP: <span id="IP" class="Widget">-</span></h2>
+            <h2>Sessions: <span id="Sessions" class="Widget">-</span></h2>
+            <h2>CPU Temp: <span id="Temp" class="Widget">-</span> Grad</h2>
+            <h2>CPU Usage: <span id="CPU-Usage" class="Widget">-</span>%</h2>
+            <h2>RAM Usage: <span id="RAM-Usage" class="Widget">-</span>%</h2>
+        </div>
     </body>
 </html>
