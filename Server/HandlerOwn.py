@@ -1,11 +1,15 @@
 import hashlib
 import http.server
 import datetime
+import inspect
 import secrets
 import json
 import psutil
 from urllib.parse import parse_qs
 import subprocess
+from Modules import *
+
+Modules = subprocess.run(["ls", "Modules"], stdout=subprocess.PIPE).stdout.decode("utf-8").split("\n")[:-1]
 
 ServerLogname = "logs/Server/" + datetime.datetime.now().strftime("%d.%m.%Y") + ".log"
 ServerLogfile = open(ServerLogname, "w")
@@ -93,12 +97,20 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(401)
                 self.end_headers()
                 return
+            temps = psutil.sensors_temperatures()
+            if "cpu_thermal" in temps:
+                cpu_temp = temps["cpu_thermal"][0].current
+            elif "coretemp" in temps:
+                cpu_temp = temps["coretemp"][0].current
+            else:
+                cpu_temp = 0
+
             data = {
                 "battery": 85,
                 "uptime": psutil.boot_time(),
                 "ip": IP,
                 "sessions": len(Sessions),
-                "temp": psutil.sensors_temperatures()['coretemp'][0].current,
+                "temp": str(cpu_temp),
                 "CPU-Usage": psutil.cpu_percent(),
                 "RAM-Usage": psutil.virtual_memory().percent,
             }
@@ -128,6 +140,48 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(bytes("<html><head></head><body>Request URL:" + self.path + "</body></html>", "utf-8"))
 
     def do_POST(self):
+        if self.path.startswith("/api/Modules"):
+            prefix = "/api/Modules/"
+            if not self.CheckSession():
+                self.send_response(401)
+                self.end_headers()
+            else:
+                for Module in Modules:
+                    if self.path == prefix + Module:
+                        pass
+
+
+        if self.path.startswith("/api/Normalactions"):
+            prefix = "/api/Normalactions/"
+            if not self.CheckSession():
+                self.send_response(401)
+                self.end_headers()
+            else:
+                if self.path == prefix + "Shutdown":
+                    subprocess.call(["sudo", "shutdown"])
+                    data = {
+                        "state" : "shutting down",
+                    }
+                elif self.path == prefix + "Reboot":
+                    subprocess.call(["sudo", "reboot"])
+                    data = {
+                        "state" : "rebooting",
+                    }
+                elif self.path == prefix + "Update":
+                    subprocess.call(["sudo", "apt-get", "update"])
+                    subprocess.call(["sudo", "apt-get", "upgrade"])
+                    data = {
+                        "state" : "updated",
+                    }
+                else:
+                    data = {
+                        "state" : "Wrong Action",
+                    }
+                self.send_response(200)
+                self.send_header("Content-type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps(data).encode())
+
         if self.path == "/api/login":
             data = parse_qs(self.rfile.read(int(self.headers['content-length'])).decode("utf-8"))
             username = data.get("username")[0]

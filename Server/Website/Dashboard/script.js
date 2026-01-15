@@ -27,8 +27,22 @@ async function blink() {
     document.getElementById("blink").textContent = "█"
 }
 
-updateWidget()
+async function NormalActions(Action) {
+    const response = await fetch("../api/Normalactions/"+Action,{
+        method: "POST",
+    }
+    )
+    const data = await response.json();
+
+    document.getElementById(Action).textContent = data.state
+    await new Promise(r => setTimeout(r, 1000));
+    document.getElementById(Action).textContent = Action
+    
+
+}
 
 setInterval(blink, 1000)
+
+updateWidget()
 
 setInterval(updateWidget, 30000)
